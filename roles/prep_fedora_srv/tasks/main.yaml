@@ -1,0 +1,21 @@
+- name: fedora_repo
+  ansible.builtin.import_tasks:
+    file: fedora_repo.yaml
+
+- name: fedora_config
+  ansible.builtin.import_tasks:
+    file: fedora_config.yaml
+
+- name: selinux
+  ansible.builtin.import_tasks:
+    file: selinux.yaml
+
+- name: fedora_update
+  ansible.builtin.import_tasks:
+    file: fedora_update.yaml
+
+- name: fedora_srv
+  ansible.builtin.import_tasks:
+    file: fedora_srv.yaml
+  notify:
+    - services

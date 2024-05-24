@@ -1,0 +1,16 @@
+srv_packages:
+  - aria2,axel,nload,bwm-ng,chrony,cronie,ntpsec,dnsperf,dnstop,ftp,lsof,hping3,iftop,iperf,iptraf-ng,iputils,lftp,lynx,macchanger,mtr,nc,nethogs,netstat-nat,net-tools,NetworkManager-tui,ngrep,nmap,ntpcheck,ntpsec,tcpdump,telnet,traceroute,sshuttle,vnstat,wget,whatmask,whois,wireguard-tools,GeoIP,sshfs
+  - moby-engine,sen,podman,podman-compose,podman-tui,docker-compose,kubernetes-client,helm,cri-tools,lxc,lxc-templates
+  - jcal,pwgen,info
+  - firewalld,setroubleshoot-server
+  - mmv,mlocate
+  - unar,unrar,p7zip,p7zip-plugins
+  - lshw,htop,sysstat,inxi,iotop,util-linux,acpid
+  - policycoreutils-python-utils
+  - python3-pip,pip
+  - bash-completion,bash-color-prompt,tmux,vim,screen,mc,xml2,dialog,figlet,fzf,lolcat,toilet,qrencode,fdupes,jdupes,bc
+  - ansible,vim-ansible,vim-enhanced,yamllint
+  - kernel-devel,kernel-headers,dkms
+  - git,cmake,python-devel,jq,clang,gcc,golang,make
+  - open-vm-tools
+  

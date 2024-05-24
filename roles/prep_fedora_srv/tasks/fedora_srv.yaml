@@ -1,0 +1,7 @@
+- name: installing commands apps for servers
+  ansible.builtin.dnf:
+    name:
+      - "{{ item }}"
+    state: latest
+  loop: "{{ srv_packages }}"
+  when: ansible_distribution == 'Fedora'

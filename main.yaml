@@ -1,0 +1,12 @@
+---
+- name: fedora first setup
+  hosts: fedora_srv
+  roles:
+    - prep_fedora_srv
+
+- name: fedora first setup
+  hosts: fedora_gui
+  roles:
+    - prep_fedora_gui
+
+

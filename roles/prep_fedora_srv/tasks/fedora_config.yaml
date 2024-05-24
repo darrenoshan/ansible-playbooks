@@ -1,0 +1,85 @@
+- name: add some alias to root bashrc
+  ansible.builtin.blockinfile:
+    path: /root/.bashrc
+    append_newline: true
+    prepend_newline: true
+    block: |
+      export HISTCONTROL=ignoreboth
+      export HISTTIMEFORMAT="%Y/%m/%d %H:%M:%S "
+      export VISUAL=/usr/bin/vi
+      export EDITOR="$VISUAL"
+      shopt -s histappend
+      PS1="\[\e[0;1m\]\u\[\e[0m\]@\[\e[0;1;38;5;160m\]\H\[\e[0m\][\[\e[0;1m\]\W\[\e[0m\]]\[\e[0m\]:\[\e[0m\](\[\e[0;1m\]$?\[\e[0m\])\[\e[0m\]\$ \[\e[0m\]"
+      alias wget="wget --report-speed=bits "
+      alias mydnf="dnf update --best --allowerasing -y --refresh "
+      alias mylogs1="journalctl --since \"10 min ago\""
+      alias mylogs2="journalctl --since \"1 hour ago\""
+      alias dig="dig +short "
+      alias ll="ls -l --color=no"
+      alias lll="ls -ltrh --color=no"
+      alias llll="ls -ltrha --color=no"
+      alias lsblk="lsblk -o NAME,MOUNTPOINT,FSTYPE,SIZE,TYPE,UUID "
+      alias date.dir="date +%Y_%m_%d_%H_%M_%S "
+      alias jdate.dir="jdate +%Y_%m_%d_%H_%M_%S "
+      alias grep="grep --color=never "
+      alias pwgen='pwgen -sBnv1 40 | tee -a ~/PASSWORDS'
+      alias tcpdump.file="tcpdump -nnnnvvvvvvv -s 65535 -w dump`date +%Y_%m_%d_%H_%M_%S`.pacp"
+      alias ping="ping -i 0.2 -W 0.2 -O "
+
+- name: make ssh client config directory
+  ansible.builtin.file:
+    path: /etc/docker/
+    recurse: true
+    state: directory
+
+- name: Change file ownership, group and permissions
+  ansible.builtin.file:
+    path: /etc/docker/daemon.json
+    mode: '0755'
+    state: touch
+
+- name: change default docker ip range
+  ansible.builtin.blockinfile:
+    path: /etc/docker/daemon.json
+    append_newline: false
+    prepend_newline: false
+    block: |
+      {
+      "bip" : "192.168.255.1/24"
+      }
+    backup: yes
+    create: yes
+    marker: ""
+    state: present
+
+- name: make ssh client config directory
+  ansible.builtin.file:
+    path: /root/.ssh/
+    recurse: true
+    state: directory
+
+- name: Change file ownership, group and permissions
+  ansible.builtin.file:
+    path: /root/.ssh/config
+    mode: '0755'
+    state: touch
+
+- name: template for ssh client config file
+  ansible.builtin.blockinfile:
+    path: /root/.ssh/config
+    append_newline: true
+    prepend_newline: true
+    block: |
+      Host host1 !host2
+          ProxyJump host1
+          LocalCommand echo -e "\n\n\x1b[30;31m------WARNING: You are on a PRODUCTIVE system! \x1b0------\n\n"
+          PermitLocalCommand yes
+          LocalForward 3306 127.0.0.1:33061
+          User root
+          StrictHostKeyChecking no
+          IdentityFile    /home/darren/.ssh/TEMPLATEKEY
+          HostKeyAlgorithms +ssh-rsa,ssh-dss
+          PubkeyAcceptedKeyTypes +ssh-rsa,ssh-dss
+          KexAlgorithms +curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+          Ciphers +aes256-cbc,aes128-cbc,3des-cbc
+          HostbasedKeyTypes +ssh-rsa,ssh-dss

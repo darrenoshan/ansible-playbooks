@@ -1,0 +1,6 @@
+- name: updateing all installed packages
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+    update_cache: true
+  when: ansible_distribution == 'Fedora'
