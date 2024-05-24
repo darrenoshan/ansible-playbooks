@@ -1,0 +1,8 @@
+---
+# Keepalived variables
+keepalived_interface: enp0s4
+keepalived_priority: 99
+keepalived_routerid: 12
+keepalived_state: BACKUP
+keepalived_vip: 10.10.10.10
+keepalived_pass: 1234

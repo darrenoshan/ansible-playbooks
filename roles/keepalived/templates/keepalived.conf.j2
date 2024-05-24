@@ -1,0 +1,27 @@
+global_defs {
+   enable_script_security
+   script_user root
+}
+vrrp_script check_haproxy {
+   script "killall -0 haproxy"
+   interval 2
+   weight 2
+}
+vrrp_instance  {
+    state {{ keepalived_state }}
+    interface {{ keepalived_interface }}
+    virtual_router_id {{ keepalived_routerid }}
+    priority {{ keepalived_priority }}
+    advert_int 1
+    virtual_ipaddress {
+     {{ keepalived_vip }}
+    authentication {
+        auth_type PASS
+        auth_pass {{ keepalived_pass }}
+    }
+
+   }
+   track_script {
+      check_haproxy
+   }
+}

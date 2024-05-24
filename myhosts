@@ -1,2 +1,15 @@
 [fedora_srv]
 192.168.1.1 ansible_port=6688
+
+[fedora_gui]
+10.24.1.143 ansible_user=ansible
+10.24.1.121 ansible_user=ansible
+
+[ubuntu]
+10.24.1.145 ansible_user=ansible
+10.24.1.125 ansible_user=ansible
+
+
+[keepalived]
+master.keepalived ansible_host=10.24.1.145 
+backup.keepalived ansible_host=10.24.1.143 
