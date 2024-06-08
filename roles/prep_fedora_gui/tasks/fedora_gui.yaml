@@ -1,0 +1,42 @@
+  - name: installing packages gui and workstation usefull apps
+    ansible.builtin.dnf:
+      name:
+        - "{{ item }}"
+      state: latest
+      allowerasing: true
+    loop: "{{ gui_packages }}"
+    when: ansible_distribution == 'Fedora'
+  # - name: Create a vistal studio code repo
+  #   ansible.builtin.yum_repository:
+  #     name: VSCode
+  #     description: Visual Studio Code
+  #     baseurl: https://packages.microsoft.com/yumrepos/vscode
+  #     gpgcheck: yes
+  #     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+  # - name: installing visual studio code
+  #   ansible.builtin.dnf:
+  #     name:
+  #       - code
+  #       # - 'https://code.visualstudio.com/sha/download?build=stable&os=linux-rpm-x64'
+  #     state: latest
+  - name: Create a VSCodium repo
+    ansible.builtin.yum_repository:
+      name: VSCodium
+      description: download.vscodium.com
+      baseurl: https://download.vscodium.com/rpms/
+      gpgcheck: yes
+      gpgkey: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg
+  - name: installing VSCodium
+    ansible.builtin.dnf:
+      name:
+        - codium
+      state: latest
+  - name: importing google key
+    ansible.builtin.rpm_key:
+      state: present
+      key: https://dl.google.com/linux/linux_signing_key.pub
+  - name: installing google-chrome-stable
+    ansible.builtin.dnf:
+      name:
+        - 'https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm'
+      state: present

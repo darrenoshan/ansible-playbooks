@@ -1,0 +1,13 @@
+- name: services
+  ansible.builtin.service:
+    name:
+      - "{{ services }}"
+    state: restarted
+    enabled: yes
+  loop:
+    - firewalld
+    - docker
+    - vmtoolsd
+    - vnstat
+  loop_control:
+    loop_var: services

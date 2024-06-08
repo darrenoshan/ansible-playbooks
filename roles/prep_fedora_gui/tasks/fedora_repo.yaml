@@ -1,0 +1,35 @@
+- name: dnf.conf config
+  ansible.builtin.blockinfile:
+    path: /etc/dnf/dnf.conf
+    append_newline: true
+    prepend_newline: true
+    block: |
+      ip_resolve=4
+      fastestmirror=true
+      max_parallel_downloads=20
+      deltarpm=1
+      keepcache=True
+  when: ansible_pkg_mgr == 'dnf'
+- name: installing pre install tools
+  ansible.builtin.dnf:
+    name:
+    - 'distribution-gpg-keys'
+    - 'deltarpm'
+    state: latest
+- name: importing rpmfusion free key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
+- name: importing rpmfusion non-free key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
+- name: installing rpmfusion free and nonfree repos
+  ansible.builtin.dnf:
+    name: " {{ item }}"
+    state: present
+    disable_gpg_check: false
+  when: ansible_distribution == 'Fedora'
+  loop:
+    - 'https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm' 
+    - 'https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm'
