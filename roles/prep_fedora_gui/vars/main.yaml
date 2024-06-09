@@ -8,7 +8,7 @@ gui_packages:
   - fedora-workstation-repositories
   - wireshark,putty,remmina,remmina-plugins-*,tigervnc,krfb,mate-terminal,telegram-desktop,tor,torbrowser-launcher,qbittorrent,filezilla,NetworkManager-*,network-manager-applet,nm-connection-editor,strongswan-charon-nm,openvpn
   - chromium,icecat,firefox
-  - engrampa,leafpad.geany,gedit
+  - engrampa,leafpad,geany,gedit
   - gparted
   - dconf-editor,dconf
   - gnome-tweak-tool,gnome-shell-extension-appindicator,gnome-shell-extension-apps-menu,gnome-shell-extension-dash-to-dock,gnome-shell-extension-just-perfection,gnome-extensions-app,nautilus-open-terminal,nomacs,drawing,xscreensaver,xscreensaver-extras,xfce4-taskmanager,xfce4-terminal,xournal,xed,pdfmod,xreader
